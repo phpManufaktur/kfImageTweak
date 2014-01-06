@@ -1,0 +1,59 @@
+{
+  "name":"imageTweak",
+  "guid":"71CAAFD8-7A1F-4B17-BF63-0BE498E9A00E",
+  "category":"extension",
+  "group":"phpManufaktur",
+  "vendor":{
+      "name":"phpManufaktur",
+      "url":"https:\/\/phpmanufaktur.de",
+      "mail":"team@phpmanufaktur.de",
+      "address":{
+          "street":"Stockholmer Straße 31",
+          "zip":"13359",
+          "city":"Berlin",
+          "country":"Germany"
+      },
+      "phone":"+49 30 68813647"
+  },
+  "type":"application",
+  "path":"\/extension\/phpmanufaktur\/phpManufaktur\/imageTweak",
+  "namespace":"phpManufaktur\\imageTweak",
+  "release":{
+    "number":"2.00",
+    "date":"2014-01-06",
+    "status":"release"
+  },
+  "description": {
+    "en":{
+      "title":"imageTweak for the kitFramework",
+      "short":"imageTweak for the kitFramework",
+      "long":"Optimize all images of your Website on the fly, reduce the traffic and impove the performance",
+      "url":"https:\/\/kit2.phpmanufaktur.de"
+    }
+  },
+  "require":{
+    "framework":{
+      "release":"0.27"
+    },
+    "extension":{
+        "phpManufaktur":{
+            "Basic":{
+                "release":"0.67"
+            }
+        }
+    }
+  },
+  "license": {
+    "name":"MIT License",
+    "url":"https:\/\/github.com\/phpManufaktur\/kfImageTweak\/raw\/master\/LICENSE.md"
+  },
+  "download": {
+    "availability":"public",
+    "agreement":"free",
+    "github":{
+      "organization":"phpManufaktur",
+      "repository":"kfImageTweak"
+    },
+    "url":"https:\/\/github.com\/phpManufaktur\/kfImageTweak"
+  }
+}
