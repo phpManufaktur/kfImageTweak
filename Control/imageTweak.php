@@ -82,6 +82,7 @@ class imageTweak
             // loop through the image tags
             $src = $image->getAttribute('src');
             if ((strpos($src, CMS_MEDIA_URL) === 0) || (strpos($src, FRAMEWORK_MEDIA_URL) === 0)) {
+                // process only images from the CMS /media or the kitFramework /kit2/media directory
                 $width = null;
                 $height = null;
 
