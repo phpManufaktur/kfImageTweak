@@ -19,7 +19,7 @@
   "path":"\/extension\/phpmanufaktur\/phpManufaktur\/imageTweak",
   "namespace":"phpManufaktur\\imageTweak",
   "release":{
-    "number":"2.02",
+    "number":"2.1.2",
     "date":"2014-01-10",
     "status":"release"
   },
