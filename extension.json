@@ -19,15 +19,21 @@
   "path":"\/extension\/phpmanufaktur\/phpManufaktur\/imageTweak",
   "namespace":"phpManufaktur\\imageTweak",
   "release":{
-    "number":"2.01",
-    "date":"2014-01-06",
+    "number":"2.02",
+    "date":"2014-01-10",
     "status":"release"
   },
   "description": {
     "en":{
       "title":"imageTweak for the kitFramework",
-      "short":"imageTweak for the kitFramework",
+      "short":"Optimize all images of your Website on the fly, reduce the traffic and impove the performance",
       "long":"Optimize all images of your Website on the fly, reduce the traffic and impove the performance",
+      "url":"https:\/\/kit2.phpmanufaktur.de"
+    },
+    "de":{
+      "title":"imageTweak for the kitFramework",
+      "short":"Optimiert alle Bilder Ihrer Website bevor sie angezeigt werden, reduziert die Datenmenge und verbessert die Ausgabegeschwindigkeit.",
+      "long":"Optimiert alle Bilder Ihrer Website bevor sie angezeigt werden, reduziert die Datenmenge und verbessert die Ausgabegeschwindigkeit.",
       "url":"https:\/\/kit2.phpmanufaktur.de"
     }
   },
@@ -38,7 +44,7 @@
     "extension":{
         "phpManufaktur":{
             "Basic":{
-                "release":"0.68"
+                "release":"0.69"
             }
         }
     }
