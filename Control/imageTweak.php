@@ -75,8 +75,19 @@ class imageTweak
         }
 
         $DOM = new \DOMDocument();
-        // suppress any errors at this point and take the content "as it is"!
-        @$DOM->loadHTML(self::$content);
+
+        // enable internal error handling
+        libxml_use_internal_errors(true);
+
+        if (!$DOM->loadHTML(self::$content)) {
+            foreach (libxml_get_errors() as $error) {
+                // handle errors here
+                $this->app['monolog']->addError('[imageTweak] '.$error->message, array(__METHOD__, __LINE__));
+                libxml_clear_errors();
+                return self::$content;
+            }
+        }
+        libxml_clear_errors();
 
         foreach ($DOM->getElementsByTagName('img') as $image) {
             // loop through the image tags
@@ -198,15 +209,32 @@ class imageTweak
 
                 // get the path
                 $relative_path = (strpos($src, CMS_MEDIA_URL) === 0) ? substr($src, strlen(CMS_URL)) : substr($src, strlen(FRAMEWORK_URL));
+
+                $parameter_str = '';
+                if (false !== strpos($relative_path, '?')) {
+                    // remove parameters from path and save them as $parameter_str
+                    $relative_path = strtok($relative_path, '?');
+                    $parameter_str = '?'.strtok('?');
+                }
+
                 $image_path = (strpos($src, CMS_MEDIA_URL) === 0) ? CMS_PATH.$relative_path : FRAMEWORK_PATH.$relative_path;
+
 
                 if (!$app['filesystem']->exists($image_path)) {
                     // the image does not exists!
-                    $app['monolog']->addError("[imageTweak] The image $src does not exists!", array(__METHOD__, __LINE__));
+                    $app['monolog']->addError("[imageTweak] The image $src does not exists!",
+                        array(__METHOD__, __LINE__));
                     continue;
                 }
 
                 list($origin_width, $origin_height, $image_type) = getimagesize($image_path);
+
+                if (!in_array($image_type, $app['image']->getSupportedImageTypes())) {
+                    // the image type is not supported
+                    $app['monolog']->addDebug("[imageTweak] The image MIME type ".$app['image']->getMimeType($image_type)." is not supported.",
+                        array(__METHOD__, __LINE__));
+                    continue;
+                }
 
                 if (empty($width) && empty($height)) {
                     // missing the attributes for width and height
@@ -256,7 +284,7 @@ class imageTweak
                 if ($app['filesystem']->exists(FRAMEWORK_MEDIA_PATH.$tweaked_file)) {
                     if (filemtime($image_path) == filemtime(FRAMEWORK_MEDIA_PATH.$tweaked_file)) {
                         // file exists and has not changed, set source to tweaked file and continue ...
-                        $image->setAttribute('src', FRAMEWORK_MEDIA_URL.$tweaked_file);
+                        $image->setAttribute('src', FRAMEWORK_MEDIA_URL.$tweaked_file.$parameter_str);
                         continue;
                     }
                 }
@@ -269,9 +297,9 @@ class imageTweak
                     FRAMEWORK_MEDIA_PATH.$tweaked_file, $width, $height);
 
                 // set the source
-                $image->setAttribute('src', FRAMEWORK_MEDIA_URL.$tweaked_file);
+                $image->setAttribute('src', FRAMEWORK_MEDIA_URL.$tweaked_file.$parameter_str);
 
-                $this->app['monolog']->addDebug('[imageTweak] Tweaked the file '.FRAMEWORK_MEDIA_URL.$tweaked_file);
+                $this->app['monolog']->addDebug('[imageTweak] Tweaked the file '.FRAMEWORK_MEDIA_URL.$tweaked_file.$parameter_str);
             }
         }
 
