@@ -221,8 +221,8 @@ class imageTweak
 
 
                 if (!$app['filesystem']->exists($image_path)) {
-                    // the image does not exists!
-                    $app['monolog']->addError("[imageTweak] The image $src does not exists!",
+                    // the image does not exist!
+                    $app['monolog']->addError("[imageTweak] The image $src does not exist!",
                         array(__METHOD__, __LINE__));
                     continue;
                 }
