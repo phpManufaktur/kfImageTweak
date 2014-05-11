@@ -16,7 +16,6 @@ use Silex\Application;
 class imageTweak
 {
     protected $app = null;
-    protected static $parameter = null;
     protected static $cms = null;
     protected static $content = null;
     protected static $filter_expression = null;
@@ -31,10 +30,6 @@ class imageTweak
     protected function initialize(Application $app)
     {
         $this->app = $app;
-
-        if (null === (self::$parameter = $app['request']->request->get('parameter', null))) {
-            self::$parameter = array();
-        }
 
         if (null === (self::$cms = $app['request']->request->get('cms', null))) {
             throw new \Exception('Missing the CMS information bag!');
@@ -61,19 +56,12 @@ class imageTweak
     }
 
     /**
-     * Controller for the imageTweak filter
+     * Process the imageTweak filter
      *
-     * @param Application $app
+     * @return mixed|string
      */
-    public function controllerImageTweak(Application $app)
+    protected function processImageTweak()
     {
-        $this->initialize($app);
-
-        if (!self::$config['enabled']) {
-            // imageTweak is not enabled, nothing to do ...
-            return self::$content;
-        }
-
         $DOM = new \DOMDocument();
 
         // enable internal error handling
@@ -220,18 +208,18 @@ class imageTweak
                 $image_path = (strpos($src, CMS_MEDIA_URL) === 0) ? CMS_PATH.$relative_path : FRAMEWORK_PATH.$relative_path;
 
 
-                if (!$app['filesystem']->exists($image_path)) {
+                if (!$this->app['filesystem']->exists($image_path)) {
                     // the image does not exist!
-                    $app['monolog']->addError("[imageTweak] The image $src does not exist!",
+                    $this->app['monolog']->addError("[imageTweak] The image $src does not exist!",
                         array(__METHOD__, __LINE__));
                     continue;
                 }
 
                 list($origin_width, $origin_height, $image_type) = getimagesize($image_path);
 
-                if (!in_array($image_type, $app['image']->getSupportedImageTypes())) {
+                if (!in_array($image_type, $this->app['image']->getSupportedImageTypes())) {
                     // the image type is not supported
-                    $app['monolog']->addDebug("[imageTweak] The image MIME type ".$app['image']->getMimeType($image_type)." is not supported.",
+                    $this->app['monolog']->addDebug("[imageTweak] The image MIME type ".$this->app['image']->getMimeType($image_type)." is not supported.",
                         array(__METHOD__, __LINE__));
                     continue;
                 }
@@ -281,7 +269,7 @@ class imageTweak
                 $tweaked_file = sprintf('/tweaked%s/%s_%dx%d.%s', $pathinfo['dirname'], $pathinfo['filename'],
                     $width, $height, $pathinfo['extension']);
 
-                if ($app['filesystem']->exists(FRAMEWORK_MEDIA_PATH.$tweaked_file)) {
+                if ($this->app['filesystem']->exists(FRAMEWORK_MEDIA_PATH.$tweaked_file)) {
                     if (filemtime($image_path) == filemtime(FRAMEWORK_MEDIA_PATH.$tweaked_file)) {
                         // file exists and has not changed, set source to tweaked file and continue ...
                         $image->setAttribute('src', FRAMEWORK_MEDIA_URL.$tweaked_file.$parameter_str);
@@ -290,10 +278,10 @@ class imageTweak
                 }
 
                 // create the directory if needed
-                $app['filesystem']->mkdir(dirname(FRAMEWORK_MEDIA_PATH.$tweaked_file));
+                $this->app['filesystem']->mkdir(dirname(FRAMEWORK_MEDIA_PATH.$tweaked_file));
 
                 // resample the image
-                $app['image']->resampleImage($image_path, $image_type, $origin_width, $origin_height,
+                $this->app['image']->resampleImage($image_path, $image_type, $origin_width, $origin_height,
                     FRAMEWORK_MEDIA_PATH.$tweaked_file, $width, $height);
 
                 // set the source
@@ -305,5 +293,47 @@ class imageTweak
 
         // return the content
         return $DOM->saveHTML();
+    }
+
+    /**
+     * Controller for the imageTweak filter
+     *
+     * @param Application $app
+     */
+    public function controllerImageTweak(Application $app)
+    {
+        $this->initialize($app);
+
+        if (!self::$config['enabled']) {
+            // imageTweak is not enabled, nothing to do ...
+            return self::$content;
+        }
+
+        return $this->processImageTweak();
+    }
+
+    /**
+     * Controller for imageTweak executed by the TemplateTools
+     *
+     * @param string $content
+     */
+    public function controllerTemplateTools(Application $app, $content)
+    {
+        $this->app = $app;
+        self::$content = $content;
+
+        if (defined('CMS_LOCALE')) {
+            $this->app['translator']->setLocale(CMS_LOCALE);
+        }
+
+        $Configuration = new Configuration($this->app);
+        self::$config = $Configuration->getConfiguration();
+
+        if (!self::$config['enabled']) {
+            // imageTweak is not enabled, nothing to do ...
+            return self::$content;
+        }
+
+        return $this->processImageTweak();
     }
 }
