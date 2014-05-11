@@ -6,6 +6,10 @@ MIT License (MIT) - <http://www.opensource.org/licenses/MIT>
 
 kitFramework - <https://kit2.phpmanufaktur.de>
 
+**2.1.3** - 2014-05-11
+
+* Add Interface `controllerTemplateTools()` for the TemplateTools
+
 **2.1.2** - 2014-01-10
 
 * changed the `DOM` error handling
