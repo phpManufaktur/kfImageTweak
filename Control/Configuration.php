@@ -75,6 +75,18 @@ class Configuration
                         'title' => '{title}',
                         'rel' => 'lightbox'
                     )
+                ),
+                'lightbox2' => array(
+                    'image' => array(
+                        'class' => 'tweak-lightbox',
+                        'remove' => true,
+                    ),
+                    'element' => 'a',
+                    'attribute' => array(
+                        'href' => '{src}',
+                        'data-title' => '{title}',
+                        'data-lightbox' => 'lightbox'
+                    )
                 )
             )
         );

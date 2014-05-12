@@ -12,3 +12,6 @@
 $filter->post('/imagetweak',
     'phpManufaktur\imageTweak\Control\imageTweak::controllerImageTweak')
     ->setOption('info', MANUFAKTUR_PATH.'/imageTweak/filter.imagetweak.json');
+
+$admin->get('/imagetweak/update',
+    'phpManufaktur\imageTweak\Data\Setup\Update::ControllerUpdate');
