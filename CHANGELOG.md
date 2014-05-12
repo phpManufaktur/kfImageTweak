@@ -6,6 +6,10 @@ MIT License (MIT) - <http://www.opensource.org/licenses/MIT>
 
 kitFramework - <https://kit2.phpmanufaktur.de>
 
+**2.1.4** - 2014-05-12
+
+* added support for the [Lightbox2](http://lokeshdhakar.com/projects/lightbox2/)
+
 **2.1.3** - 2014-05-11
 
 * Add Interface `controllerTemplateTools()` for the TemplateTools

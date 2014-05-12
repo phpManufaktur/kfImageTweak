@@ -19,9 +19,9 @@
   "path":"\/extension\/phpmanufaktur\/phpManufaktur\/imageTweak",
   "namespace":"phpManufaktur\\imageTweak",
   "release":{
-    "number":"2.1.3",
-    "date":"2014-05-11",
-    "status":"beta"
+    "number":"2.1.4",
+    "date":"2014-05-12",
+    "status":"stable"
   },
   "description": {
     "en":{
@@ -44,10 +44,13 @@
     "extension":{
         "phpManufaktur":{
             "Basic":{
-                "release":"0.69"
+                "release":"0.92"
             }
         }
     }
+  },
+  "setup": {
+      "update":"\/admin\/imagetweak\/update"
   },
   "license": {
     "name":"MIT License",
