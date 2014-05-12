@@ -9,6 +9,7 @@ kitFramework - <https://kit2.phpmanufaktur.de>
 **2.1.4** - 2014-05-12
 
 * added support for the [Lightbox2](http://lokeshdhakar.com/projects/lightbox2/)
+* changed imageTweak status to `stable
 
 **2.1.3** - 2014-05-11
 
