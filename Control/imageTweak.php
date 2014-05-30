@@ -60,12 +60,16 @@ class imageTweak
      *
      * @return mixed|string
      */
-    protected function processImageTweak()
+    protected function processImageTweak($convert_encoding=false)
     {
         $DOM = new \DOMDocument();
 
         // enable internal error handling
         libxml_use_internal_errors(true);
+
+        if ($convert_encoding) {
+            self::$content = mb_convert_encoding(self::$content, 'HTML-ENTITIES', "UTF-8");
+        }
 
         if (!$DOM->loadHTML(self::$content)) {
             foreach (libxml_get_errors() as $error) {
@@ -334,6 +338,6 @@ class imageTweak
             return self::$content;
         }
 
-        return $this->processImageTweak();
+        return $this->processImageTweak(true);
     }
 }
