@@ -6,6 +6,10 @@ MIT License (MIT) - <http://www.opensource.org/licenses/MIT>
 
 kitFramework - <https://kit2.phpmanufaktur.de>
 
+**2.1.6** - 2014-06-12
+
+* fixed a problem with the release notation - imageTweak was no longer shown in the catalog
+
 **2.1.5** - 2014-06-11
 
 * added multibyte encoding to UTF-8 for direct access to the DOM filter
@@ -13,7 +17,7 @@ kitFramework - <https://kit2.phpmanufaktur.de>
 **2.1.4** - 2014-05-12
 
 * added support for the [Lightbox2](http://lokeshdhakar.com/projects/lightbox2/)
-* changed imageTweak status to `stable
+* changed imageTweak status to `release`
 
 **2.1.3** - 2014-05-11
 
