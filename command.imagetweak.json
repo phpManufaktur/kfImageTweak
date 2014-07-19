@@ -1,0 +1,43 @@
+{
+  "command":"imageTweak",
+  "vendor": {
+    "name":"phpManufaktur",
+    "url":"https:\/\/kit2.phpmanufaktur.de"
+    },
+  "name": {
+    "en":"imageTweak Extension",
+    "de":"imageTweak Erweiterung"
+  },
+  "description": {
+    "en":"Use the imageTweakt Extension to embed a image gallery at your website.",
+    "de":"Nutzen Sie die imageTweak Erweiterung um eine Bilder-Galerie in Ihrer Website einzubinden."
+  },
+  "help": {
+    "en": {
+      "link": "https:\/\/gist.github.com\/hertsch\/014d698a9585f2cd3dff",
+      "gist_id": "014d698a9585f2cd3dff",
+      "file": {
+        "help":"kitcommand_imagetweak_en.md",
+        "welcome":"welcome.md"
+      }
+    }
+  },
+  "info": {
+    "en": {
+      "link":"https:\/\/kit2.phpmanufaktur.de"
+    },
+    "de": {
+      "link":"https:\/\/kit2.phpmanufaktur.de"
+    }
+  },
+  "issues": {
+    "en": {
+      "link":"https:\/\/github.com\/phpManufaktur\/kfImageTweak\/issues"
+    }
+  },
+  "support": {
+    "en": {
+      "link":"https:\/\/support.phpmanufaktur.de"
+    }
+  }
+}
