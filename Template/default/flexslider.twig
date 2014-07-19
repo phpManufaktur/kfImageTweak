@@ -1,0 +1,134 @@
+{#
+  imageTweak
+ 
+  @author Team phpManufaktur <team@phpmanufaktur.de>
+  @link https://kit2.phpmanufaktur.de
+  @copyright 2008, 2011, 2014 Ralf Hertsch <ralf.hertsch@phpmanufaktur.de>
+  @license MIT License (MIT) http://www.opensource.org/licenses/MIT
+#}
+
+{% extends getTemplateFile('@phpManufaktur/Basic/Template', 'kitcommand/bootstrap/iframe.body.twig') %}
+{% block title %}{{ 'imageTweak - FlexSlider'|trans }}{% endblock %}
+{% block stylesheet %}
+  {{ parent() }}
+  <link rel="stylesheet" type="text/css" href="{{ LIBRARY_URL }}/jquery/flexslider/latest/flexslider.min.css" />
+  <link rel="stylesheet" type="text/css" href="{{ MANUFAKTUR_URL }}/imageTweak/Template/default/css/imagetweak.min.css" />
+{% endblock %}
+
+
+
+{% block content %}
+  <!-- {{ _self.getTemplateName() }} -->
+  {# call the parent to enable the extension to prompt alerts #}
+  {{ parent() }}
+
+  <div id="slider" class="flexslider">
+    <ul class="slides">
+      {% for image in gallery %}
+        <li class="flex-item"{% if parameter.control_nav == '"thumbnails"' %} data-thumb="{{ image.thumbnail.url }}"{% endif %}>
+          {# check for a ALT attribute #}
+          {% if attribute(image.locale, app.translator.locale).alt is defined and attribute(image.locale, app.translator.locale).alt|length > 0 %}
+            {% set alternate = ' alt="{{ attribute(image.locale, app.translator.locale).alt }}"' %}
+          {% elseif image.locale.en.alt is defined and image.locale.en.alt|length > 0 %}
+            {% set alternate = ' alt="{{ image.locale.en.alt }}"' %}
+          {% else %}
+            {% set alternate = '' %}
+          {% endif %}
+
+          {% if attribute(image.locale, app.translator.locale).link.url is defined and attribute(image.locale, app.translator.locale).link.url|length > 0 %}
+            <a href="{{ attribute(image.locale, app.translator.locale).link.url }}" target="{{ attribute(image.locale, app.translator.locale).link.target|default('_parent') }}"{% if attribute(image.locale, app.translator.locale).link.title is defined and attribute(image.locale, app.translator.locale).link.title|length > 0 %} title="{{ attribute(image.locale, app.translator.locale).link.title }}"{% endif %}>
+              <img src="{{ image.fullsize.url }}"{{ alternate }} />
+            </a>
+          {% elseif image.locale.en.link.url is defined and image.locale.en.link.url|length > 0 %}
+            <a href="{{ image.locale.en.link.url }}" target="{{ image.locale.en.link.target|default('_parent') }}"{% if image.locale.en.link.title is defined and image.locale.en.link.title|length > 0 %} title="{{ image.locale.en.link.title }}"{% endif %}>
+              <img src="{{ image.fullsize.url }}"{{ alternate }} />
+            </a>
+          {% else %}              
+            <img src="{{ image.fullsize.url }}"{{ alternate }} />
+          {% endif %}
+
+          {# check if an image title is available #}
+          {% if attribute(image.locale, app.translator.locale).title is defined and attribute(image.locale, app.translator.locale).title|length > 0 %}
+            <div class="flex-caption">{{ attribute(image.locale, app.translator.locale).title }}</div>
+          {% elseif image.locale.en.title is defined and image.locale.en.title|length > 0 %}
+            <div class="flex-caption">{{ image.locale.en.title }}</div>
+          {% endif %}
+        </li>        
+      {% endfor %}
+    </ul>
+  </div> 
+      
+  {% if parameter.mode == 'thumbnail_slider' %}
+    <div id="carousel" class="flexslider">
+      <ul class="slides">
+        {% for image in gallery %}
+          <li><img src="{{ image.thumbnail.url }}"</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}  
+{% endblock %}
+
+{% block footer_jquery %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ LIBRARY_URL }}/jquery/flexslider/latest/jquery.flexslider-min.js"></script>
+{% endblock footer_jquery %}
+
+{% block footer %}
+  <script type="text/javascript">
+    $(window).load(function() {
+      
+      {% if parameter.mode == 'thumbnail_slider' %}
+        $('#carousel').flexslider({
+          animation: "slide",
+          controlNav: false,
+          animationLoop: false,
+          slideshow: false,
+          itemWidth: {{ parameter.item_width }},
+          itemMargin: {{ parameter.item_margin }},
+          minItems: {{ parameter.min_items }},
+          maxItems: {{ parameter.max_items }},
+          move: {{ parameter.move }},
+          asNavFor: '#slider'
+        });  
+      {% endif %}    
+      
+      $('.flexslider').flexslider({
+        animation: "{{ parameter.animation }}",
+        controlNav: {{ parameter.control_nav }},
+        startAt: {{ parameter.start_at }},
+        easing: "{{ parameter.easing }}",
+        direction: "{{ parameter.direction }}",
+        reverse: {{ parameter.reverse }},
+        animationLoop: {{ parameter.animation_loop }},
+        smoothHeight: {{ parameter.smooth_height }},
+        slideshow: {{ parameter.slideshow }},
+        slideshowSpeed: {{ parameter.slideshow_speed }},
+        animationSpeed: {{ parameter.animation_speed }},
+        initDelay: {{ parameter.init_delay }},
+        randomize: {{ parameter.randomize }},
+        directionNav: {{ parameter.direction_nav }},
+        prevText: "{{ 'Previous'|trans }}",
+        nextText: "{{ 'Next'|trans }}",
+        sync: "{{ parameter.sync }}",
+        {% if parameter.mode == 'carousel' %}
+          itemWidth: {{ parameter.item_width }},
+          itemMargin: {{ parameter.item_margin }},
+          minItems: {{ parameter.min_items }},
+          maxItems: {{ parameter.max_items }},
+        {% endif %}   
+        start: function() {
+          // get the height for the iFrame from the first image of the slide!
+          var height = $('#slider').first().height();
+          var frame_id = window.frameElement.getAttribute('id');
+          var additional_height = 0;
+          {% if parameter.mode == 'thumbnail_slider' %}
+            additional_height = $('#carousel').first().height() + 20;
+          {% endif %}
+          var content_height = height + additional_height + {{ basic.frame.add|default(50) }} +"px";
+          parent.document.getElementById(frame_id).style.height = content_height; 
+        }
+      });
+    });
+  </script>
+{% endblock footer %}

@@ -17,30 +17,31 @@ use phpManufaktur\imageTweak\Control\Configuration;
 class Update
 {
     protected $app = null;
+    protected $Configuration = null;
 
     /**
      * Release 2.1.4
      */
     protected function release_2104()
     {
-        $Configuration = new Configuration($this->app);
-        $config = $Configuration->getConfiguration();
+        $config = $this->Configuration->getConfiguration();
 
         if (!isset($config['embed']['lightbox2'])) {
-            $config['embed']['lightbox2'] = array(
-                'image' => array(
-                    'class' => 'tweak-lightbox',
-                    'remove' => true,
-                ),
-                'element' => 'a',
-                'attribute' => array(
-                    'href' => '{src}',
-                    'data-title' => '{title}',
-                    'data-lightbox' => 'lightbox'
-                )
-            );
-            $Configuration->setConfiguration($config);
-            $Configuration->saveConfiguration();
+            $default = $this->Configuration->getDefaultConfigArray();
+            $config['embed']['lightbox2'] = $default['embed']['lightbox2'];
+            $this->Configuration->setConfiguration($config);
+            $this->Configuration->saveConfiguration();
+        }
+    }
+
+    protected function release_2107()
+    {
+        $config = $this->Configuration->getConfiguration();
+        if (!isset($config['gallery'])) {
+            $default = $this->Configuration->getDefaultConfigArray();
+            $config['gallery'] = $default['gallery'];
+            $this->Configuration->setConfiguration($config);
+            $this->Configuration->saveConfiguration();
         }
     }
 
@@ -52,8 +53,10 @@ class Update
     public function ControllerUpdate(Application $app)
     {
         $this->app = $app;
+        $this->Configuration = new Configuration($app);
 
         $this->release_2104();
+        $this->release_2107();
 
         return $app['translator']->trans('Successfull updated the extension %extension%.',
             array('%extension%' => 'imageTweak'));

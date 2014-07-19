@@ -9,9 +9,19 @@
  * @license MIT License (MIT) http://www.opensource.org/licenses/MIT
  */
 
-$filter->post('/imagetweak',
-    'phpManufaktur\imageTweak\Control\imageTweak::controllerImageTweak')
-    ->setOption('info', MANUFAKTUR_PATH.'/imageTweak/filter.imagetweak.json');
-
+// administrative links
 $admin->get('/imagetweak/update',
     'phpManufaktur\imageTweak\Data\Setup\Update::ControllerUpdate');
+
+// imageTweak FILTER (main function)
+$filter->post('/imagetweak',
+    'phpManufaktur\imageTweak\Control\Filter\imageTweak::controllerImageTweak')
+    ->setOption('info', MANUFAKTUR_PATH.'/imageTweak/filter.imagetweak.json');
+
+// imageTweak kitCOMMAND (for galleries ...)
+$command->post('/imagetweak',
+    'phpManufaktur\imageTweak\Control\Command\Action::ControllerAction')
+    ->setOption('info', MANUFAKTUR_PATH.'/imageTweak/command.imagetweak.json');
+
+$app->get('/imagetweak/gallery/flexslider',
+    'phpManufaktur\imageTweak\Control\Command\GalleryFlexSlider::ControllerGallery');

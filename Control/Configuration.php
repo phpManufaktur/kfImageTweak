@@ -88,6 +88,33 @@ class Configuration
                         'data-lightbox' => 'lightbox'
                     )
                 )
+            ),
+            'gallery' => array(
+                'locale' => array(
+                    'locales' => array(
+                        'en',
+                        'de'
+                    ),
+                    'fallback' => 'en'
+                ),
+                'image' => array(
+                    'extension' => array(
+                        '*.jpg',
+                        '*.jpeg',
+                        '*.png',
+                        '*.JPG',
+                        '*.JPEG',
+                        '*.PNG'
+                    ),
+                    'fullsize' => array(
+                        'max_width' => 1200,
+                        'max_height' => 800
+                    ),
+                    'thumbnail' => array(
+                        'max_width' => 250,
+                        'max_height' => 200
+                    )
+                )
             )
         );
     }
