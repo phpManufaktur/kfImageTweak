@@ -7,7 +7,8 @@
   @license MIT License (MIT) http://www.opensource.org/licenses/MIT
 #}
 
-{% extends getTemplateFile('@phpManufaktur/Basic/Template', 'kitcommand/bootstrap/iframe.body.twig') %}
+{# the gallery is responsive but does not need Bootstrap! #}
+{% extends getTemplateFile('@phpManufaktur/Basic/Template', 'kitcommand/iframe.body.twig') %}
 {% block title %}{{ 'imageTweak - FlexSlider'|trans }}{% endblock %}
 {% block stylesheet %}
   {{ parent() }}
@@ -15,7 +16,10 @@
   <link rel="stylesheet" type="text/css" href="{{ MANUFAKTUR_URL }}/imageTweak/Template/default/css/imagetweak.min.css" />
 {% endblock %}
 
-
+{% block jquery %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ LIBRARY_URL }}/jquery/flexslider/latest/jquery.flexslider-min.js"></script>
+{% endblock jquery %}
 
 {% block content %}
   <!-- {{ _self.getTemplateName() }} -->
@@ -25,33 +29,42 @@
   <div id="slider" class="flexslider">
     <ul class="slides">
       {% for image in gallery %}
-        <li class="flex-item"{% if parameter.control_nav == '"thumbnails"' %} data-thumb="{{ image.thumbnail.url }}"{% endif %}>
-          {# check for a ALT attribute #}
-          {% if attribute(image.locale, app.translator.locale).alt is defined and attribute(image.locale, app.translator.locale).alt|length > 0 %}
-            {% set alternate = ' alt="{{ attribute(image.locale, app.translator.locale).alt }}"' %}
-          {% elseif image.locale.en.alt is defined and image.locale.en.alt|length > 0 %}
-            {% set alternate = ' alt="{{ image.locale.en.alt }}"' %}
-          {% else %}
-            {% set alternate = '' %}
-          {% endif %}
+        
+        {% set image_alternate = '' %}
+        {% set image_title = '' %}
 
+        {% if config.gallery.image.set_alt %}
+          {# check for a ALTERNATE attribute #}
+          {% if attribute(image.locale, app.translator.locale).description is defined and attribute(image.locale, app.translator.locale).description|length > 0 %}
+            {% set image_alternate = ' alt="' ~ attribute(image.locale, app.translator.locale).description ~ '"' %}
+          {% elseif image.locale.en.description is defined and image.locale.en.description|length > 0 %}
+            {% set image_alternate = ' alt="' ~ image.locale.en.description ~ '"' %}
+          {% endif %}
+        {% endif %}
+
+        {% if config.gallery.image.set_title and image_alternate|length > 0 %}
+          {% set image_title = image_alternate|replace({' alt="':' title="'}) %}
+        {% endif %}
+
+        <li class="flex-item"{% if parameter.control_nav == '"thumbnails"' %} data-thumb="{{ image.thumbnail.url }}"{% endif %}> 
+          
           {% if attribute(image.locale, app.translator.locale).link.url is defined and attribute(image.locale, app.translator.locale).link.url|length > 0 %}
             <a href="{{ attribute(image.locale, app.translator.locale).link.url }}" target="{{ attribute(image.locale, app.translator.locale).link.target|default('_parent') }}"{% if attribute(image.locale, app.translator.locale).link.title is defined and attribute(image.locale, app.translator.locale).link.title|length > 0 %} title="{{ attribute(image.locale, app.translator.locale).link.title }}"{% endif %}>
-              <img src="{{ image.fullsize.url }}"{{ alternate }} />
+              <img class="tweak-ignore" src="{{ image.fullsize.url }}"{{ image_alternate }}{{ image_title }} />
             </a>
           {% elseif image.locale.en.link.url is defined and image.locale.en.link.url|length > 0 %}
             <a href="{{ image.locale.en.link.url }}" target="{{ image.locale.en.link.target|default('_parent') }}"{% if image.locale.en.link.title is defined and image.locale.en.link.title|length > 0 %} title="{{ image.locale.en.link.title }}"{% endif %}>
-              <img src="{{ image.fullsize.url }}"{{ alternate }} />
+              <img class="tweak-ignore" src="{{ image.fullsize.url }}"{{ image_alternate }}{{ image_title }} />
             </a>
-          {% else %}              
-            <img src="{{ image.fullsize.url }}"{{ alternate }} />
+          {% else %}                
+            <img class="tweak-ignore" src="{{ image.fullsize.url }}"{{ image_alternate }}{{ image_title }} />
           {% endif %}
 
           {# check if an image title is available #}
-          {% if attribute(image.locale, app.translator.locale).title is defined and attribute(image.locale, app.translator.locale).title|length > 0 %}
-            <div class="flex-caption">{{ attribute(image.locale, app.translator.locale).title }}</div>
-          {% elseif image.locale.en.title is defined and image.locale.en.title|length > 0 %}
-            <div class="flex-caption">{{ image.locale.en.title }}</div>
+          {% if attribute(image.locale, app.translator.locale).content is defined and attribute(image.locale, app.translator.locale).content|length > 0 %}
+            <div class="flex-content">{{ attribute(image.locale, app.translator.locale).content }}</div>
+          {% elseif image.locale.en.content is defined and image.locale.en.content|length > 0 %}
+            <div class="flex-content">{{ image.locale.en.content }}</div>
           {% endif %}
         </li>        
       {% endfor %}
@@ -62,7 +75,26 @@
     <div id="carousel" class="flexslider">
       <ul class="slides">
         {% for image in gallery %}
-          <li><img src="{{ image.thumbnail.url }}"</li>
+          
+          {% set image_alternate = '' %}
+          {% set image_title = '' %}
+          
+          {% if config.gallery.image.set_alt %}
+            {# check for a ALTERNATE attribute #}
+            {% if attribute(image.locale, app.translator.locale).description is defined and attribute(image.locale, app.translator.locale).description|length > 0 %}
+              {% set image_alternate = ' alt="' ~ attribute(image.locale, app.translator.locale).description ~ '"' %}
+            {% elseif image.locale.en.description is defined and image.locale.en.description|length > 0 %}
+              {% set image_alternate = ' alt="' ~ image.locale.en.description ~ '"' %}
+            {% endif %}
+          {% endif %}
+
+          {% if config.gallery.image.set_title and image_alternate|length > 0 %}
+            {% set image_title = image_alternate|replace({' alt="':' title="'}) %}
+          {% endif %}
+          
+          <li>
+            <img class="tweak-ignore" src="{{ image.thumbnail.url }}"{{ image_alternate }}{{ image_title }} />
+          </li>
         {% endfor %}
       </ul>
     </div>
@@ -71,13 +103,13 @@
 
 {% block footer_jquery %}
   {{ parent() }}
-  <script type="text/javascript" src="{{ LIBRARY_URL }}/jquery/flexslider/latest/jquery.flexslider-min.js"></script>
+  
 {% endblock footer_jquery %}
 
 {% block footer %}
+  {# overwrite the footer of the parent! The frame height will be set by the FlexSlider! #}
   <script type="text/javascript">
-    $(window).load(function() {
-      
+    $(window).load(function() {     
       {% if parameter.mode == 'thumbnail_slider' %}
         $('#carousel').flexslider({
           animation: "slide",
@@ -91,8 +123,7 @@
           move: {{ parameter.move }},
           asNavFor: '#slider'
         });  
-      {% endif %}    
-      
+      {% endif %}          
       $('.flexslider').flexslider({
         animation: "{{ parameter.animation }}",
         controlNav: {{ parameter.control_nav }},
@@ -118,7 +149,7 @@
           maxItems: {{ parameter.max_items }},
         {% endif %}   
         start: function() {
-          // get the height for the iFrame from the first image of the slide!
+          {# get the height for the iFrame from the first image of the slide and set the iFrame height #}
           var height = $('#slider').first().height();
           var frame_id = window.frameElement.getAttribute('id');
           var additional_height = 0;

@@ -161,8 +161,8 @@ class GalleryFlexSlider extends Basic
                 );
                 foreach (self::$config['gallery']['locale']['locales'] as $locale) {
                     $gallery_info[$basename]['locale'][$locale] = array(
-                        'alt' => isset($gallery_info[$basename]['locale'][$locale]['alt']) ? $gallery_info[$basename]['locale'][$locale]['alt'] : '',
-                        'title' => isset($gallery_info[$basename]['locale'][$locale]['title']) ? $gallery_info[$basename]['locale'][$locale]['title'] : '',
+                        'description' => isset($gallery_info[$basename]['locale'][$locale]['description']) ? $gallery_info[$basename]['locale'][$locale]['description'] : '',
+                        'content' => isset($gallery_info[$basename]['locale'][$locale]['content']) ? $gallery_info[$basename]['locale'][$locale]['content'] : '',
                         'link' => array(
                             'url' => isset($gallery_info[$basename]['locale'][$locale]['link']['url']) ? $gallery_info[$basename]['locale'][$locale]['link']['url'] : '',
                             'target' => isset($gallery_info[$basename]['locale'][$locale]['link']['target']) ? $gallery_info[$basename]['locale'][$locale]['link']['target'] : '_parent',

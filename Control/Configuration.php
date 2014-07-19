@@ -113,7 +113,9 @@ class Configuration
                     'thumbnail' => array(
                         'max_width' => 250,
                         'max_height' => 200
-                    )
+                    ),
+                    'set_title' => true,
+                    'set_alt' => true
                 )
             )
         );

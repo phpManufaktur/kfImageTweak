@@ -165,6 +165,11 @@ class imageTweak
                     }
                 }
 
+                if (in_array('tweak-ignore', $class)) {
+                    // we have to ignore this image!
+                    continue;
+                }
+
                 // loop through embedded items - i.e. for a fancybox replacement
                 foreach (self::$config['embed'] as $embed) {
                     if (isset($embed['image']['class']) && in_array($embed['image']['class'], $class)) {
