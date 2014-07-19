@@ -9,9 +9,10 @@
  * @license MIT License (MIT) http://www.opensource.org/licenses/MIT
  */
 
-namespace phpManufaktur\imageTweak\Control;
+namespace phpManufaktur\imageTweak\Control\Filter;
 
 use Silex\Application;
+use phpManufaktur\imageTweak\Control\Configuration;
 
 class imageTweak
 {
