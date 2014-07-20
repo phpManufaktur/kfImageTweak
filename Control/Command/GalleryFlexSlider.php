@@ -233,39 +233,56 @@ class GalleryFlexSlider extends Basic
 
         self::$parameter['start_at'] = (isset(self::$parameter['start_at']) && is_numeric(self::$parameter['start_at'])) ?
             intval(self::$parameter['start_at']) : 0;
+
         self::$parameter['easing'] = (isset(self::$parameter['easing']) && in_array(strtolower(self::$parameter['easing']), array('swing', 'linear'))) ?
             strtolower(self::$parameter['easing']) : 'linear';
+
         self::$parameter['direction'] = (isset(self::$parameter['direction']) && in_array(strtolower(self::$parameter['direction']), array('horizontal', 'vertical'))) ?
             strtolower(self::$parameter['direction']) : 'horizontal';
+
         self::$parameter['reverse'] = (isset(self::$parameter['reverse']) && in_array(strtolower(self::$parameter['reverse']), array('true', 'false'))) ?
             strtolower(self::$parameter['reverse']) : 'false';
+
         self::$parameter['animation_loop'] = (isset(self::$parameter['animation_loop']) && in_array(strtolower(self::$parameter['animation_loop']), array('true', 'false'))) ?
             strtolower(self::$parameter['animation_loop']) : 'true';
+
         self::$parameter['smooth_height'] = (isset(self::$parameter['smooth_height']) && in_array(strtolower(self::$parameter['smooth_height']), array('true', 'false'))) ?
             strtolower(self::$parameter['smooth_height']) : 'false';
+
         self::$parameter['slideshow'] = (isset(self::$parameter['slideshow']) && in_array(strtolower(self::$parameter['slideshow']), array('true', 'false'))) ?
             strtolower(self::$parameter['slideshow']) : 'true';
+
         self::$parameter['slideshow_speed'] = (isset(self::$parameter['slideshow_speed']) && is_numeric(self::$parameter['slideshow_speed'])) ?
             intval(self::$parameter['slideshow_speed']) : 7000;
+
         self::$parameter['animation_speed'] = (isset(self::$parameter['animation_speed']) && is_numeric(self::$parameter['animation_speed'])) ?
             intval(self::$parameter['animation_speed']) : 600;
+
         self::$parameter['init_delay'] = (isset(self::$parameter['init_delay']) && is_numeric(self::$parameter['init_delay'])) ?
             intval(self::$parameter['init_delay']) : 0;
+
         self::$parameter['randomize'] = (isset(self::$parameter['randomize']) && in_array(strtolower(self::$parameter['randomize']), array('true', 'false'))) ?
             strtolower(self::$parameter['randomize']) : 'false';
+
         self::$parameter['use_css'] = (isset(self::$parameter['use_css']) && in_array(strtolower(self::$parameter['use_css']), array('true', 'false'))) ?
             strtolower(self::$parameter['use_css']) : 'true';
+
         self::$parameter['direction_nav'] = (isset(self::$parameter['direction_nav']) && in_array(strtolower(self::$parameter['direction_nav']), array('true', 'false'))) ?
             strtolower(self::$parameter['direction_nav']) : 'true';
+
         // carousel parameters
         self::$parameter['item_width'] = (isset(self::$parameter['item_width']) && is_numeric(self::$parameter['item_width'])) ?
             intval(self::$parameter['item_width']) : self::$config['gallery']['image']['thumbnail']['max_width'];
+
         self::$parameter['item_margin'] = (isset(self::$parameter['item_margin']) && is_numeric(self::$parameter['item_margin'])) ?
             intval(self::$parameter['item_margin']) : 0;
+
         self::$parameter['min_items'] = (isset(self::$parameter['min_items']) && is_numeric(self::$parameter['min_items'])) ?
             intval(self::$parameter['min_items']) : 0;
+
         self::$parameter['max_items'] = (isset(self::$parameter['max_items']) && is_numeric(self::$parameter['max_items'])) ?
             intval(self::$parameter['max_items']) : 0;
+
         self::$parameter['move'] = (isset(self::$parameter['move']) && is_numeric(self::$parameter['move'])) ?
             intval(self::$parameter['move']) : 0;
 
