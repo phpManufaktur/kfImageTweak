@@ -254,7 +254,7 @@ class GalleryFlexSlider extends Basic
         self::$parameter['randomize'] = (isset(self::$parameter['randomize']) && in_array(strtolower(self::$parameter['randomize']), array('true', 'false'))) ?
             strtolower(self::$parameter['randomize']) : 'false';
         self::$parameter['use_css'] = (isset(self::$parameter['use_css']) && in_array(strtolower(self::$parameter['use_css']), array('true', 'false'))) ?
-            strtolower(self::$parameter['reverse']) : 'true';
+            strtolower(self::$parameter['use_css']) : 'true';
         self::$parameter['direction_nav'] = (isset(self::$parameter['direction_nav']) && in_array(strtolower(self::$parameter['direction_nav']), array('true', 'false'))) ?
             strtolower(self::$parameter['direction_nav']) : 'true';
         // carousel parameters
