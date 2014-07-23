@@ -10,6 +10,8 @@
  */
 
 // administrative links
+$admin->get('/imagetweak/setup',
+    'phpManufaktur\imageTweak\Data\Setup\Setup::Controller');
 $admin->get('/imagetweak/update',
     'phpManufaktur\imageTweak\Data\Setup\Update::ControllerUpdate');
 
@@ -25,3 +27,6 @@ $command->post('/imagetweak',
 
 $app->get('/imagetweak/gallery/flexslider',
     'phpManufaktur\imageTweak\Control\Command\GalleryFlexSlider::ControllerGallery');
+
+$app->get('/imagetweak/gallery/sandbox',
+    'phpManufaktur\imageTweak\Control\Command\GallerySandbox::ControllerGallery');

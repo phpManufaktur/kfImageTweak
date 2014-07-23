@@ -50,7 +50,8 @@
     }
   },
   "setup": {
-      "update":"\/admin\/imagetweak\/update"
+    "install":"\/admin\/imagetweak\/setup",
+    "update":"\/admin\/imagetweak\/update"
   },
   "license": {
     "name":"MIT License",

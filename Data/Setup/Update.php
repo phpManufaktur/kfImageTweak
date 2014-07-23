@@ -34,6 +34,9 @@ class Update
         }
     }
 
+    /**
+     * Release 2.1.7
+     */
     protected function release_2107()
     {
         $config = $this->Configuration->getConfiguration();
@@ -57,6 +60,10 @@ class Update
 
         $this->release_2104();
         $this->release_2107();
+
+        // check the config.jsoneditor.json for imageTweak entries
+        $Setup = new Setup();
+        $Setup->jsonEditorConfiguration($app);
 
         return $app['translator']->trans('Successfull updated the extension %extension%.',
             array('%extension%' => 'imageTweak'));
