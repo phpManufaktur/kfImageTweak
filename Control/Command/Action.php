@@ -50,6 +50,8 @@ class Action extends Basic
                 switch (self::$parameter['type']) {
                     case 'flexslider':
                         return $this->createIFrame('/imagetweak/gallery/flexslider');
+                    case 'sandbox':
+                        return $this->createIFrame('/imagetweak/gallery/sandbox');
                     default:
                         // unknown gallery type!
                         $this->setAlert('The gallery type <b>%type%</b> is unknown, please check the parameters for the kitCommand!',

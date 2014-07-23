@@ -1,0 +1,78 @@
+{#
+  imageTweak
+ 
+  @author Team phpManufaktur <team@phpmanufaktur.de>
+  @link https://kit2.phpmanufaktur.de
+  @copyright 2008, 2011, 2014 Ralf Hertsch <ralf.hertsch@phpmanufaktur.de>
+  @license MIT License (MIT) http://www.opensource.org/licenses/MIT
+#}
+
+{# the gallery is responsive but does not need Bootstrap! #}
+{% extends getTemplateFile('@phpManufaktur/Basic/Template', 'kitcommand/bootstrap/iframe.body.twig') %}
+{% block title %}{{ 'imageTweak - Sandbox'|trans }}{% endblock %}
+{% block stylesheet %}
+  {{ parent() }}
+  {# place here your own CSS file(s) #}
+{% endblock %}
+
+{% block jquery %}
+  {{ parent() }}
+  {# place here jQuery/JavaScript files which should be loaded in the <head> section #}
+{% endblock jquery %}
+
+{% block content %}
+  <!-- {{ _self.getTemplateName() }} -->
+
+  {# call the parent to enable the extension to prompt alerts #}
+  {{ parent() }}
+
+  <p>This SANDBOX gallery loop through the images and prompt the available variables. You can use these data to create your own gallery.</p>
+  
+  {% for image in gallery %}
+    <div>
+      <pre>
+        image.name: {{ image.name }} 
+        
+        image.fullsize.url: {{ image.fullsize.url }}
+        image.fullsize.width: {{ image.fullsize.width }}
+        image.fullsize.height: {{ image.fullsize.height }}
+        
+        image.thumbnail.url: {{ image.thumbnail.url }}
+        image.thumbnail.width: {{ image.thumbnail.width }}
+        image.thumbnail.height: {{ image.thumbnail.height }}
+        
+        {% for locale, item in image.locale %}
+        {% if locale|length == 2 %}
+        locale: {{ locale }}  
+        description: {{ item.description }}
+        content: {{ item.content }}
+        link.url: {{ item.link.url }}
+        link.target: {{ item.link.target }}
+        link.title: {{ item.link.title }}
+        {% endif %}
+        {% endfor %}
+      </pre>
+    </div>
+  {% endfor %}
+  
+  <pre>
+    {# 
+      the template receive also all paramter which are passed to the kitCommand and 
+      also the imageTweak configuration settings. If you have switched on the DEBUG 
+      mode in the framework.json configuration, you can use the function dump() to
+      see all variables passed to the template, i.e. use dump(parameter) to see all
+      passed paramter. 
+    #}
+  </pre>
+    
+{% endblock %}
+  
+{% block footer_jquery %}
+  {{ parent() }}  
+  {# place here jQuery files which should be loaded at the footer of the template #}
+{% endblock footer_jquery %}
+
+{% block footer %}
+  {{ parent() }}
+  {# place here script configuration a.s.o - sometimes it will be usefull to place parent() behind your code, test it! #}
+{% endblock footer %}
