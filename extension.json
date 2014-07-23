@@ -19,8 +19,8 @@
   "path":"\/extension\/phpmanufaktur\/phpManufaktur\/imageTweak",
   "namespace":"phpManufaktur\\imageTweak",
   "release":{
-    "number":"2.1.6",
-    "date":"2014-06-12",
+    "number":"2.1.7",
+    "date":"2014-07-23",
     "status":"release"
   },
   "description": {
@@ -42,11 +42,14 @@
       "release":"0.27"
     },
     "extension":{
-        "phpManufaktur":{
-            "Basic":{
-                "release":"0.95"
-            }
+      "phpManufaktur":{
+        "Basic":{
+          "release":"1.0.1"
+        },
+        "Library":{
+          "release":"0.34"
         }
+      }
     }
   },
   "setup": {

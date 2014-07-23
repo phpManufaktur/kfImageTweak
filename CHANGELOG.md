@@ -6,6 +6,15 @@ MIT License (MIT) - <http://www.opensource.org/licenses/MIT>
 
 kitFramework - <https://kit2.phpmanufaktur.de>
 
+**2.1.7** - 2014-07-23
+
+* changed directory and namespace for the imageTweak Filter class
+* introduce kitCommand `~~ imagetweak action[gallery] ~~`
+* introduce helpfile for the imageTweak kitCommand
+* introduce the FlexSlider Gallery mode for imageTweak
+* introduce a sandbox mode for the imageTweak gallery
+* added support for the usage of the kitFramework jsonEditor
+
 **2.1.6** - 2014-06-12
 
 * fixed a problem with the release notation - imageTweak was no longer shown in the catalog
