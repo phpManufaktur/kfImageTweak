@@ -17,8 +17,6 @@ if ('á' != "\xc3\xa1") {
 }
 
 return array(
-  'Invalid image path!'
-    => 'Ungültiger Abbildungspfad!',
   'help_config_imagetweak_json'
     => '<p>Diese Konfigurationsdatei wird für beide Teile der <em>imageTweak</em> Erweiterung benörigt, den <em>kitFilter</em> und das <em>kitCommand</em>.</p><p>Bitte besuchen Sie das <a href="https://github.com/phpManufaktur/kfImageTweak/wiki/config.image.tweak.json" target="_blank">imageTweak Wiki</a> um mehr über den Aufbau und die Einstellungen in der <a href="https://github.com/phpManufaktur/kfImageTweak/wiki/config.image.tweak.json" target="_blank"><var>config.image.tweak.json</var></a> zu erfahren.</p>',
   'help_gallery_json'
@@ -27,5 +25,11 @@ return array(
     => 'imageTweak - FlexSlider',
   'imageTweak - Sandbox'
     => 'imageTweak - Sandbox',
+  'Invalid image path!'
+    => 'Ungültiger Abbildungspfad!',
+  'Please check the parameters for the kitCommand and specify a valid <i>base</i> and <i>directory</i>'
+    => 'Bitte überprüfen Sie die Parameter für das kitCommand und geben Sie gültige Werte für <em>base</em> und <em>directory</em> an!',
+  'The gallery type <b>%type%</b> is unknown, please check the parameters for the kitCommand!'
+    => 'Der Galerie Typ <b>%type%</b> ist unbekannt, bitte prüfen Sie die Parameter für das kitCommand!',
   
 );
