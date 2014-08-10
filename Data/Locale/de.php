@@ -27,8 +27,12 @@ return array(
     => 'imageTweak - Sandbox',
   'Invalid image path!'
     => 'Ungültiger Abbildungspfad!',
+  'Next'
+    => 'Nächstes',
   'Please check the parameters for the kitCommand and specify a valid <i>base</i> and <i>directory</i>'
     => 'Bitte überprüfen Sie die Parameter für das kitCommand und geben Sie gültige Werte für <em>base</em> und <em>directory</em> an!',
+  'Previous'
+    => 'Vorheriges',
   'The gallery type <b>%type%</b> is unknown, please check the parameters for the kitCommand!'
     => 'Der Galerie Typ <b>%type%</b> ist unbekannt, bitte prüfen Sie die Parameter für das kitCommand!',
   
