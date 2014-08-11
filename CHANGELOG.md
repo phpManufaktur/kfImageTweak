@@ -6,6 +6,10 @@ MIT License (MIT) - <http://www.opensource.org/licenses/MIT>
 
 kitFramework - <https://kit2.phpmanufaktur.de>
 
+**2.1.8** - 2014-08-11
+
+* improved translation handling, added support for i18nEditor
+
 **2.1.7** - 2014-07-23
 
 * changed directory and namespace for the imageTweak Filter class
