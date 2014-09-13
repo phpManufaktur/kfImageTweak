@@ -4,7 +4,7 @@
  * kitFramework::imageTweak
  *
  * @author Team phpManufaktur <team@phpmanufaktur.de>
- * @link https://kit2.phpmanufaktur.de
+ * @link https://kit2.phpmanufaktur.de/imageTweak
  * @copyright 2014 Ralf Hertsch <ralf.hertsch@phpmanufaktur.de>
  * @license MIT License (MIT) http://www.opensource.org/licenses/MIT
  *
