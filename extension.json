@@ -21,7 +21,8 @@
   "release":{
     "number":"2.1.8",
     "date":"2014-08-11",
-    "status":"release"
+    "status":"release",
+    "changelog":"https:\/\/github.com\/phpManufaktur\/kfImageTweak\/blob\/master\/CHANGELOG.md"
   },
   "description": {
     "en":{
